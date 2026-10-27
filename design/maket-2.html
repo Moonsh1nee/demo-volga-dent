@@ -1,0 +1,287 @@
+<title>Волга-Дент</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap">
+<style>
+:root{ --bg:#fbfdfc;--surf:#ffffff;--ink:#0b2b2c;--mute:#587172;--navy:#0f4f52;--coral:#0f6b6a;--coral-ink:#ffffff;--mint:#d6f0e8;--ice:#eef6f5;--line:#dbe8e6;--hero:#eaf5f3;--hero-ink:#0b2b2c;color-scheme:light; --tb-bg:#ffffff;--tb-fg:#1c1f24;--tb-line:#dfe2e7;--stage:#e9ebef;--tb-on:#1c1f24;--tb-on-fg:#ffffff;--tb-chip:#f0f2f5 }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --bg:#071b1c;--surf:#0d2829;--ink:#e5f3f1;--mute:#8fb0ae;--navy:#7fe0d2;--coral:#5fd3c8;--coral-ink:#04201e;--mint:#12403b;--ice:#0b2425;--line:#1b3f40;--hero:#0c2c2d;--hero-ink:#e5f3f1; --tb-bg:#16181c;--tb-fg:#e8eaee;--tb-line:#2a2e35;--stage:#0c0d10;--tb-on:#e8eaee;--tb-on-fg:#16181c;--tb-chip:#23262c;color-scheme:dark}}
+:root[data-theme="dark"]{ --bg:#071b1c;--surf:#0d2829;--ink:#e5f3f1;--mute:#8fb0ae;--navy:#7fe0d2;--coral:#5fd3c8;--coral-ink:#04201e;--mint:#12403b;--ice:#0b2425;--line:#1b3f40;--hero:#0c2c2d;--hero-ink:#e5f3f1; --tb-bg:#16181c;--tb-fg:#e8eaee;--tb-line:#2a2e35;--stage:#0c0d10;--tb-on:#e8eaee;--tb-on-fg:#16181c;--tb-chip:#23262c;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);overflow:hidden;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--tb-bg)}
+.tb{flex:none;display:flex;align-items:center;gap:10px;flex-wrap:nowrap;min-height:48px;padding:6px max(12px,env(safe-area-inset-left,0px)) 6px max(12px,env(safe-area-inset-right,0px));background:var(--tb-bg);color:var(--tb-fg);border-bottom:1px solid var(--tb-line);font:500 13px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif}
+.tb .lbl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb .lbl b{font-weight:700}
+.tb .lbl span{opacity:.6;margin-left:8px}
+.seg{display:flex;background:var(--tb-chip);border-radius:9px;padding:3px;gap:2px}
+.seg button,.thm{font:inherit;border:0;background:transparent;color:var(--tb-fg);padding:6px 11px;border-radius:7px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--tb-on);color:var(--tb-on-fg)}
+.thm{background:var(--tb-chip);padding:7px 10px;border-radius:9px}
+.tb button:focus-visible{outline:2px solid #4c8dff;outline-offset:2px}
+@media (max-width:700px){.seg{display:none}.tb .lbl span{display:none}}
+.stage{flex:1;min-height:0;display:flex;justify-content:center;align-items:stretch;background:var(--stage)}
+.device{container-type:inline-size;position:relative;width:100%;background:var(--bg);overflow:hidden}
+.scroller{height:100%;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth;overscroll-behavior:contain}
+.stage.phone{align-items:center;padding:14px 0}
+.stage.phone .device{width:390px;max-width:100%;height:min(100%,844px);border-radius:34px;border:8px solid #0b0c0e;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.demo-toast{position:absolute;left:50%;bottom:16px;transform:translate(-50%,20px);max-width:calc(100% - 32px);background:#111;color:#fff;font:500 14px/1.35 system-ui,sans-serif;padding:11px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:200;text-align:center}
+.demo-toast.on{opacity:1;transform:translate(-50%,0)}
+.r{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.armed .r:not(.in){opacity:0;transform:translateY(22px)}
+@media (prefers-reduced-motion:reduce){.r{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.scroller{scroll-behavior:auto}}
+.site{font:500 16px/1.55 Manrope,system-ui,sans-serif;color:var(--ink)}
+.site h1,.site h2,.site h3,.site h4{font-family:Geologica,Manrope,sans-serif;margin:0;line-height:1.12;text-wrap:balance;font-weight:600;letter-spacing:-.015em}
+.site p{margin:0}
+.w{width:100%;max-width:1180px;margin:0 auto;padding-inline:max(20px,env(safe-area-inset-left,0px))}
+.site section{padding-block:80px;scroll-margin-top:72px}
+.hd{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd .w{display:flex;align-items:center;gap:28px;height:72px}
+.logo{font:700 21px Geologica,sans-serif;color:var(--ink);display:flex;gap:10px;align-items:center;text-decoration:none}
+.logo svg{color:var(--coral)}
+.nav{display:flex;gap:26px;margin-left:auto;font-size:15px;font-weight:600}.nav a{color:var(--mute);cursor:pointer;text-decoration:none}.nav a:hover{color:var(--ink)}
+.ph{font-weight:700;font-size:15px;white-space:nowrap}
+.btn{font:700 15px Manrope;border:0;border-radius:14px;padding:14px 24px;cursor:pointer;background:var(--coral);color:var(--coral-ink);text-decoration:none;display:inline-flex;gap:8px;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px var(--coral)}
+.btn.line{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn:focus-visible,.site button:focus-visible,.site input:focus-visible,.site textarea:focus-visible,.site summary:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.burger{display:none;margin-left:auto;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--surf);color:var(--ink);font-size:20px;cursor:pointer}
+.menu{display:none;position:absolute;left:0;right:0;top:72px;z-index:29;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 20px;flex-direction:column}
+.menu a{padding:14px 0;border-bottom:1px solid var(--line);font-weight:700;color:var(--ink);text-decoration:none}
+.hero{padding-block:40px 0!important}
+.hero .box{background:var(--hero);color:var(--hero-ink);border-radius:36px;padding:64px;display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(34px,4.6vw,58px);font-weight:700}
+.hero h1 span{color:#ffb4a8}
+.hero p{margin-top:20px;font-size:18px;opacity:.82;max-width:30em}
+.hero .acts{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.hero .btn.line{border-color:rgba(255,255,255,.35);color:#fff}
+.hero .meta{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}.hero .meta b{font:700 24px Geologica;display:block}.hero .meta span{font-size:13px;opacity:.7}
+.art{position:relative;aspect-ratio:1/1.05;max-width:100%}
+.art .disc{position:absolute;inset:6% 6%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#2a6d96,#12496f 70%)}
+.art svg{position:absolute;inset:0;width:100%;height:100%}
+.chip{position:absolute;background:var(--surf);color:var(--ink);border-radius:16px;padding:10px 14px;font-size:13px;font-weight:700;box-shadow:0 12px 30px -10px rgba(0,0,0,.4);display:flex;gap:10px;align-items:center}
+.chip i{width:30px;height:30px;border-radius:10px;background:var(--mint);display:grid;place-items:center;font-style:normal;font-size:15px;color:#0c5a45}
+.chip small{display:block;font-weight:500;color:var(--mute);font-size:12px}
+.h2{font-size:clamp(28px,3.4vw,42px)}.kick{font:700 12px Manrope;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:14px}
+.sec-h{max-width:620px;margin-bottom:44px}.sec-h p{color:var(--mute);margin-top:14px}
+.feat{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feat div{background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:24px}
+.feat b{font:600 20px Geologica;display:block;margin-bottom:8px}.feat span{font-size:14px;color:var(--mute)}
+.svc{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.svc .it{display:flex;gap:18px;align-items:center;background:var(--surf);border:1px solid var(--line);border-radius:22px;padding:20px 24px}
+.svc .ic{flex:none;width:56px;height:56px;border-radius:18px;background:var(--ice);display:grid;place-items:center;color:var(--navy)}
+.svc h3{font-size:18px}.svc .d{font-size:14px;color:var(--mute);margin-top:2px}
+.svc .pr{margin-left:auto;text-align:right;font:600 17px Geologica;white-space:nowrap}.svc .pr small{display:block;font:500 12px Manrope;color:var(--mute)}
+.book{background:var(--ice)}
+.bk{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:28px;padding:32px}
+.stp{display:flex;gap:8px;margin-bottom:26px}.stp i{flex:1;height:6px;border-radius:6px;background:var(--line);transition:background .2s}.stp i.on{background:var(--coral)}
+.panel h3{font-size:22px;margin-bottom:6px}.panel .sub{color:var(--mute);font-size:14px;margin-bottom:20px}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--bg);border:1.5px solid var(--line);border-radius:18px;padding:14px 16px;color:var(--ink);font:inherit;cursor:pointer}
+.opt:hover{border-color:var(--coral)}.opt[aria-pressed="true"]{border-color:var(--coral);background:color-mix(in srgb,var(--coral) 10%,var(--surf))}
+.opt b{display:block;font-weight:700}.opt small{color:var(--mute);font-weight:500}.opt .r{margin-left:auto;font-weight:700;white-space:nowrap}
+.av{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font:700 16px Geologica;color:#fff}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px}
+.day{flex:none;width:64px;padding:10px 0;border-radius:16px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
+.day small{display:block;color:var(--mute);font-size:12px;text-transform:uppercase}.day b{font:600 20px Geologica}
+.day[aria-pressed="true"]{background:var(--navy);color:var(--bg);border-color:var(--navy)}.day[aria-pressed="true"] small{color:inherit;opacity:.75}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.slot{padding:12px 0;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font:700 15px Manrope;cursor:pointer;font-variant-numeric:tabular-nums}
+.slot[aria-pressed="true"]{background:var(--coral);border-color:var(--coral);color:var(--coral-ink)}.slot[disabled]{opacity:.35;text-decoration:line-through;cursor:not-allowed}
+.form{display:grid;gap:14px}.form label{display:grid;gap:6px;font-size:14px;font-weight:700}
+.form input,.form textarea{font:500 16px Manrope;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+.form .cons{display:flex;gap:10px;align-items:flex-start;font-weight:500;color:var(--mute);font-size:13px}.form .cons input{width:18px;height:18px;margin-top:2px;accent-color:var(--coral)}
+.err{color:#d6336c;font-size:13px;min-height:1em}
+.nav2{display:flex;justify-content:space-between;margin-top:26px;gap:12px}
+.sum{position:sticky;top:88px;background:var(--navy);color:var(--bg);border-radius:28px;padding:26px}
+:root[data-theme=dark] .sum{color:#06182a}
+.sum h4{font:600 14px Manrope;opacity:.7;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.sum dl{margin:0;display:grid;gap:14px}.sum dt{font-size:12px;opacity:.65}.sum dd{margin:2px 0 0;font-weight:700}
+.sum .tot{margin-top:20px;padding-top:16px;border-top:1px dashed rgba(255,255,255,.3);display:flex;justify-content:space-between;font:600 20px Geologica}
+.done{text-align:center;padding:10px 0}.done .tick{width:72px;height:72px;border-radius:50%;background:var(--mint);color:#0c5a45;display:grid;place-items:center;font-size:34px;margin:0 auto 16px}
+.tk{margin:20px auto 0;max-width:380px;text-align:left;border:1.5px dashed var(--line);border-radius:18px;padding:18px;display:grid;gap:8px;font-size:15px}
+.my{margin-top:24px}.my h3{font-size:20px;margin-bottom:12px}
+.rec{display:flex;gap:14px;align-items:center;justify-content:space-between;background:var(--surf);border:1px solid var(--line);border-radius:18px;padding:14px 18px;margin-bottom:8px;flex-wrap:wrap}
+.rec button{background:transparent;border:1.5px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 14px;font:700 13px Manrope;cursor:pointer}
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.doc{background:var(--surf);border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.doc .pic{aspect-ratio:1/.9;display:grid;place-items:center;font:700 44px Geologica;color:rgba(255,255,255,.92)}
+.doc .tx{padding:18px 20px 22px}.doc h3{font-size:17px}.doc p{font-size:14px;color:var(--mute);margin-top:6px}.doc em{display:inline-block;margin-top:10px;font-style:normal;font-size:12px;font-weight:700;background:var(--mint);color:#0c5a45;border-radius:999px;padding:4px 10px}
+:root[data-theme=dark] .doc em{color:#9be8cf}
+.tech{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.tech div{padding:26px;border-radius:24px;background:var(--surf);border:1px solid var(--line)}.tech h3{font-size:18px;margin-bottom:8px}.tech p{font-size:15px;color:var(--mute)}
+.tech svg{color:var(--coral);margin-bottom:14px}
+.rv{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.rv figure{margin:0;padding:26px;border-radius:24px;background:var(--surf);border:1px solid var(--line);display:flex;flex-direction:column;gap:14px;font-size:15px}.rv figcaption{font-weight:700;margin-top:auto;font-size:14px}.rv figcaption span{display:block;color:var(--mute);font-weight:500}
+.cont{display:grid;grid-template-columns:1fr 1.1fr;gap:24px}
+.map{border-radius:28px;min-height:300px;background:var(--ice);position:relative;overflow:hidden;border:1px solid var(--line)}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.info{background:var(--surf);border:1px solid var(--line);border-radius:28px;padding:32px;display:grid;gap:18px;align-content:start}
+.info b{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-bottom:4px}
+.ft{padding-block:32px!important;border-top:1px solid var(--line);font-size:13px;color:var(--mute)}
+.demo-note{background:var(--navy);color:var(--bg);font-size:13px;font-weight:600;text-align:center;padding:8px 16px}
+:root[data-theme=dark] .demo-note{color:#06182a}
+.mcta{position:absolute;left:12px;right:12px;bottom:12px;z-index:40;display:none}.mcta .btn{width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+@container (max-width:980px){.bk{grid-template-columns:1fr}.sum{position:static}.docs,.feat{grid-template-columns:repeat(2,1fr)}.tech,.rv{grid-template-columns:1fr}.hero .box{grid-template-columns:1fr;padding:44px 32px}.art{max-width:380px;margin:0 auto;width:100%}.cont{grid-template-columns:1fr}.nav{gap:16px}.ph{display:none}}
+@container (max-width:720px){.site section{padding-block:52px}.nav,.hd .btn{display:none}.burger{display:block}.menu.open{display:flex}.hd .w{height:64px}.menu{top:64px}.svc{grid-template-columns:1fr}.svc .it{padding:16px}.hero{padding-block:16px 0!important}.hero .box{padding:32px 22px;border-radius:28px}.panel{padding:22px 18px;border-radius:24px}.docs,.feat{grid-template-columns:1fr}.mcta{display:block}.ft{padding-bottom:90px!important}.chip{font-size:12px;padding:8px 10px}.hero .acts .btn{flex:1}}
+/* v2: лаконично, светло, медленное движение */
+.site h1,.site h2,.site h3,.site h4{font-weight:500}
+.site h1{font-weight:300;font-size:clamp(40px,5.8vw,76px);letter-spacing:-.03em;line-height:1.04}
+.h2{font-weight:300;letter-spacing:-.025em}
+.hd{border-bottom:1px solid var(--line)}
+.btn{border-radius:999px;font-weight:600;box-shadow:none}.btn:hover{box-shadow:0 10px 24px -12px var(--coral)}
+.kick{color:var(--coral);letter-spacing:.18em}
+.hero{padding-block:48px 0!important}
+.hero .box{background:transparent;color:var(--ink);padding:0;border-radius:0;overflow:visible;gap:56px}
+.hero h1 span{color:var(--coral);font-weight:500}
+.hero p{color:var(--mute);opacity:1;font-size:19px;max-width:26em}
+.hero .meta{margin-top:44px;padding-top:24px;border-top:1px solid var(--line)}.hero .meta b{font-weight:300;font-size:30px}.hero .meta span{opacity:1;color:var(--mute)}
+.qb{display:flex;align-items:center;margin-top:36px;max-width:620px;background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 26px;gap:0;box-shadow:0 24px 50px -30px rgba(15,107,106,.45)}
+.qb label{flex:1;min-width:0;display:grid;gap:2px;font:700 10px Manrope;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);padding-right:14px;margin-right:14px;border-right:1px solid var(--line)}
+.qb label:nth-of-type(2){border-right:0;margin-right:0}
+.qb select{font:600 15px Manrope;border:0;background:transparent;color:var(--ink);width:100%;padding:2px 0;text-overflow:ellipsis;cursor:pointer}
+.qb select:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:4px}
+.qb .btn{flex:none;padding:16px 26px}
+.art .disc{background:radial-gradient(circle at 35% 30%,#f4fbf9,#cfeae4 72%);animation:br 9s ease-in-out infinite}
+:root[data-theme=dark] .art .disc{background:radial-gradient(circle at 35% 30%,#1d4a4a,#0f3536 72%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .art .disc{background:radial-gradient(circle at 35% 30%,#1d4a4a,#0f3536 72%)}}
+@keyframes br{50%{transform:scale(1.035)}}
+.art svg{animation:fy 9s ease-in-out infinite}@keyframes fy{50%{transform:translateY(-8px)}}
+.tw1{animation:tw 3.2s ease-in-out infinite;transform-origin:300px 112px}.tw2{animation:tw 3.2s ease-in-out -1.6s infinite;transform-origin:120px 130px}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.1)}}
+.chip{border:1px solid var(--line);box-shadow:0 18px 40px -22px rgba(15,107,106,.45)}
+.chip i{color:#0f6b6a}
+.feat{gap:0;border-block:1px solid var(--line)}.feat div{background:transparent;border:0;border-radius:0;border-left:1px solid var(--line);padding:30px 26px}.feat div:first-child{border-left:0;padding-left:0}
+.feat b{font-weight:500}
+.svc{gap:0;border-top:1px solid var(--line)}.svc .it{background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:24px 8px}.svc .ic{background:transparent;border:1px solid var(--line)}
+.svc .it:hover .ic{background:var(--mint)}
+.panel,.sum{border-radius:20px}
+.doc,.tech div,.rv figure{border-radius:20px}
+.book{background:var(--ice)}
+.sum{background:var(--navy)}
+.opt[aria-pressed="true"]{background:color-mix(in srgb,var(--coral) 8%,var(--surf))}
+.day[aria-pressed="true"]{background:var(--coral);border-color:var(--coral);color:var(--coral-ink)}
+.slot[aria-pressed="true"]{color:var(--coral-ink)}
+.demo-note{background:var(--navy)}
+.stp i.on{background:var(--coral)}
+.mcta .btn{box-shadow:0 12px 30px rgba(0,0,0,.25)}
+@container (max-width:980px){.feat div{border-left:0;padding:22px 0;border-top:1px solid var(--line)}.feat div:first-child{border-top:0}}
+@container (max-width:720px){.qb{flex-direction:column;align-items:stretch;border-radius:24px;padding:16px;gap:12px}.qb label{border-right:0;margin:0;padding:0 0 12px;border-bottom:1px solid var(--line)}.qb label:nth-of-type(2){border-bottom:0;padding-bottom:0}.hero .box{gap:36px}.docs{grid-template-columns:1fr 1fr!important}.doc .pic{font-size:30px;aspect-ratio:1/.7}.doc .tx{padding:14px}.doc h3{font-size:15px}}
+</style>
+<header class="tb">
+  <div class="lbl"><b>Волга-Дент · сайт с онлайн-записью</b><span>Демо-макет · все данные вымышленные</span></div>
+  <div class="seg" role="group" aria-label="Режим просмотра"><button type="button" data-mode="desk" aria-pressed="true">Компьютер</button><button type="button" data-mode="phone" aria-pressed="false">Телефон</button></div>
+  <button type="button" class="thm" id="thm" aria-label="Сменить тему">◐ Тема</button>
+</header>
+<div class="stage" id="stage"><div class="device" id="device"><div class="scroller" id="scroller">
+<div class="site">
+<div class="demo-note">Демонстрационный сайт: клиника, врачи, цены и лицензия вымышлены</div>
+<header class="hd"><div class="w">
+<a class="logo" data-go="top" href="#"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M16 5c-3-2.4-9-2-10 4-.8 5 2 7 2.6 12 .4 3 1.6 6 3.4 6 2.2 0 1.6-5 4-5s1.8 5 4 5c1.8 0 3-3 3.4-6C24 16 26.800 14 26 9c-1-6-7-6.400-10-4z" fill="currentColor"/><path d="M10 12c2 2 4.500 2.600 6 2.600S20 14 22 12" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".7"/></svg>Волга-Дент</a>
+<nav class="nav"><a data-go="uslugi">Услуги и цены</a><a data-go="book">Запись</a><a data-go="vrachi">Врачи</a><a data-go="tech">Технологии</a><a data-go="otz">Отзывы</a><a data-go="kont">Контакты</a></nav>
+<span class="ph">8 (000) 000-00-00</span><a class="btn" data-go="book" href="#">Записаться</a>
+<button class="burger" id="burger" aria-label="Меню">☰</button></div></header>
+<nav class="menu" id="menu"><a data-go="uslugi" href="#">Услуги и цены</a><a data-go="book" href="#">Запись онлайн</a><a data-go="vrachi" href="#">Врачи</a><a data-go="otz" href="#">Отзывы</a><a data-go="kont" href="#">Контакты</a></nav>
+<section class="hero" id="top"><div class="w"><div class="box"><div>
+<div class="kick" style="margin-bottom:22px">Стоматология в центре Волгограда</div>
+<h1>Здоровая улыбка <span>без страха</span> и очередей</h1>
+<p>Запись за минуту без звонков, фиксированный план лечения и гарантия на работы.</p>
+<form class="qb" id="qb"><label for="qs">Услуга<select id="qs"></select></label><label for="qdoc">Врач<select id="qdoc"></select></label><button class="btn" type="submit">Найти время</button></form>
+<div class="meta"><div><b>0 ₽</b><span>первичный осмотр</span></div><div><b>3 года</b><span>гарантия на пломбы</span></div><div><b>15 мин</b><span>до ближайшего окна</span></div></div></div>
+<div class="art"><div class="disc"></div><svg viewBox="0 0 400 420" fill="none"><path d="M200 78c-34-26-98-20-108 42-8 52 20 70 28 124 4 30 14 70 36 70 24 0 18-56 44-56s20 56 44 56c22 0 32-40 36-70 8-54 36-72 28-124-10-62-74-68-108-42z" fill="#fff" stroke="#0f6b6a" stroke-width="2.500"/><path d="M130 150c22 22 48 28 70 28s48-6 70-28" stroke="#b8d9d4" stroke-width="5" stroke-linecap="round"/><g class="tw1" fill="#0f6b6a"><path d="M300 100l4 12 12 4-12 4-4 12-4-12-12-4 12-4z"/></g><g class="tw2" fill="#0f6b6a"><path d="M120 120l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g></svg>
+<div class="chip" style="left:-2%;top:14%"><i>✓</i><div>Без боли<small>современная анестезия</small></div></div>
+<div class="chip" style="right:-2%;top:48%"><i>3D</i><div>Снимок за 8 секунд<small>минимум излучения</small></div></div></div>
+</div></div></section>
+<section style="padding-block:56px 0" class="r"><div class="w"><div class="feat"><div><b>Один план</b><span>Врач составляет план и называет итоговую цену до начала лечения.</span></div><div><b>Без очередей</b><span>Приём по записи, ожидание не дольше 10 минут.</span></div><div><b>Рассрочка</b><span>Разделите оплату лечения на 6 месяцев без переплаты.</span></div><div><b>Гарантия</b><span>На пломбы три года, на импланты по паспорту производителя.</span></div></div></div></section>
+<section id="uslugi"><div class="w"><div class="sec-h"><div class="kick">Услуги и цены</div><h2 class="h2">Основные услуги и стоимость</h2><p>Точную цену врач назовёт после осмотра. Здесь указаны цены, от которых мы отталкиваемся.</p></div>
+<div class="svc" id="svcList"></div></div></section>
+<section class="book" id="book"><div class="w"><div class="sec-h"><div class="kick">Запись онлайн</div><h2 class="h2">Выберите услугу, врача и время</h2><p>Пять шагов, телефон нужен только в конце. В демо-версии запись сохраняется в вашем браузере.</p></div>
+<div class="bk"><div><div class="panel" id="panel"></div><div class="my" id="my"></div></div>
+<aside class="sum" aria-live="polite"><h4>Ваша запись</h4><dl id="sum"></dl><div class="tot"><span>Стоимость</span><span id="tot">–</span></div></aside></div></div></section>
+<section id="vrachi"><div class="w"><div class="sec-h"><div class="kick">Врачи</div><h2 class="h2">Команда, которой можно доверять</h2></div><div class="docs" id="docList"></div></div></section>
+<section id="tech" style="background:var(--ice)"><div class="w"><div class="sec-h"><div class="kick">Технологии</div><h2 class="h2">Оборудование, которое экономит ваше время</h2></div><div class="tech">
+<div><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="3"/><path d="M8 20h8M12 16v4"/></svg><h3>3D-томография</h3><p>Видим корни и кость в объёме, поэтому планируем имплантацию заранее и без сюрпризов.</p></div>
+<div><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100"/></svg><h3>Микроскоп</h3><p>Лечим каналы под увеличением в 20 раз. Это снижает риск повторного лечения.</p></div>
+<div><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l8 4v5c0 4.500-3.400 8-8 9-4.600-1-8-4.500-8-9V7z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></svg><h3>Стерильность</h3><p>Инструменты проходят предстерилизационную очистку и упаковываются в крафт-пакеты при вас.</p></div></div></div></section>
+<section id="otz"><div class="w"><div class="sec-h"><div class="kick">Отзывы</div><h2 class="h2">Пациенты о приёме</h2><p>Отзывы демонстрационные. На рабочем сайте здесь будут настоящие, со ссылками на карты.</p></div><div class="rv">
+<figure><div>★★★★★</div><div>Боялась идти к стоматологу лет десять. Врач объяснила каждый шаг, ничего не болело, и я записалась на следующий визит сама.</div><figcaption>Ирина В.<span>лечение кариеса</span></figcaption></figure>
+<figure><div>★★★★★</div><div>Поставили имплант за один визит после 3D-снимка. Заранее показали план и сумму, в итоге не доплачивал ни рубля.</div><figcaption>Сергей П.<span>имплантация</span></figcaption></figure>
+<figure><div>★★★★★</div><div>Записала дочку через сайт в пятницу вечером, а в субботу утром уже были у врача. Ребёнок вышел с наклейкой и без слёз.</div><figcaption>Ольга Т.<span>детский приём</span></figcaption></figure></div></div></section>
+<section id="kont" style="padding-top:0"><div class="w"><div class="cont"><div class="map"><svg viewBox="0 0 400 320" preserveAspectRatio="xMidYMid slice" fill="none"><rect width="400" height="320" fill="var(--ice)"/><path d="M-10 230C80 200 160 250 260 210S380 150 420 170V340H-10z" fill="#9fd2ee" opacity=".7"/><g stroke="var(--line)" stroke-width="10" stroke-linecap="round"><path d="M0 60h400M0 140h300M90 0v200M220 0v170M320 90v110"/></g><g fill="var(--surf)" opacity=".9"><rect x="110" y="76" width="90" height="52" rx="10"/><rect x="240" y="20" width="60" height="50" rx="10"/><rect x="20" y="76" width="56" height="52" rx="10"/></g><g transform="translate(150 96)"><path d="M0 40C-18 14-16-14 0-14s18 28 0 54z" fill="var(--coral)" transform="translate(0 -4) scale(1.100)"/><circle cx="0" cy="-2" r="6" fill="#fff"/></g></svg></div>
+<div class="info"><h3>Центр Волгограда, рядом с набережной</h3><div><b>Адрес</b>Демо-адрес: ул. Примерная, 1 (вымышленный)</div><div><b>Часы работы</b>Пн–Сб 9:00 – 19:00, воскресенье выходной</div><div><b>Телефон</b>8 (000) 000-00-00</div><div><a class="btn" data-go="book" href="#">Записаться онлайн</a></div></div></div></div></section>
+<footer class="ft"><div class="w">Демо-проект студии Akimov Web. Стоматология вымышлена, лицензия и реквизиты на этом месте появятся на рабочем сайте. Имеются противопоказания, необходима консультация специалиста.</div></footer>
+</div>
+</div>
+<div class="mcta"><a class="btn" data-go="book" href="#">Записаться онлайн</a></div>
+<div class="demo-toast" id="toast" role="status"></div>
+</div></div>
+<script>
+(function(){
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+window.$=$;window.$$=$$;
+var stage=$('#stage');
+$$('[data-mode]').forEach(function(b){b.addEventListener('click',function(){stage.classList.toggle('phone',b.dataset.mode==='phone');$$('[data-mode]').forEach(function(x){x.setAttribute('aria-pressed',x===b)})})});
+var root=document.documentElement,t=null;
+try{t=localStorage.getItem('demo-theme')}catch(e){}
+if(t)root.dataset.theme=t;
+$('#thm').addEventListener('click',function(){var dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;var n=dark?'light':'dark';root.dataset.theme=n;try{localStorage.setItem('demo-theme',n)}catch(e){}});
+var tt;window.toast=function(m){var e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){e.classList.remove('on')},3200)};
+window.store={get:function(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+document.addEventListener('click',function(e){var a=e.target.closest('[data-go]');if(!a)return;e.preventDefault();var el=document.getElementById(a.dataset.go);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});var m=$('.menu.open');if(m)m.classList.remove('open')});
+})();
+
+(function(){var sc=document.getElementById('scroller'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+function fmt(n){return Math.round(n).toLocaleString('ru-RU')}
+function count(e){var to=+e.dataset.count,pre=e.dataset.pre||'',suf=e.dataset.suf||'';if(rm||!to){e.textContent=pre+fmt(to)+suf;return}var t0=null;function f(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/1300),v=to*(1-Math.pow(1-k,3));e.textContent=pre+fmt(v)+suf;if(k<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');if(x.target.dataset.count!==undefined)count(x.target);io.unobserve(x.target)}})},{root:sc,threshold:.12});
+function init(){Array.prototype.forEach.call(document.querySelectorAll('.r,[data-count]'),function(e){if(e._ro)return;e._ro=1;if(e.dataset.count!==undefined&&!e.classList.contains('r'))e.textContent=(e.dataset.pre||'')+fmt(+e.dataset.count)+(e.dataset.suf||'');io.observe(e)})}
+init();window.revealInit=init;
+sc.addEventListener('scroll',function(){sc.classList.add('armed')},{once:true,passive:true});
+})();
+</script>
+<script>
+(function(){
+var SV=[{k:'consult',n:'Консультация и план лечения',p:0,d:30,t:'бесплатно',i:'M4 5h16v11H8l-4 4z'},{k:'hyg',n:'Профессиональная гигиена',p:4200,d:60,t:'4 200 ₽',i:'M12 3l1.800 4.600L18.500 9l-4.700 1.400L12 15l-1.800-4.600L5.500 9l4.700-1.400z'},{k:'caries',n:'Лечение кариеса',p:3500,d:60,t:'от 3 500 ₽',i:'M12 21s-7-5-7-11a4 4 0 017-2.500A4 4 0 0119 10c0 6-7 11-7 11z'},{k:'implant',n:'Имплантация зуба',p:38000,d:90,t:'от 38 000 ₽',i:'M12 3v8M8 11h8M9 11l1 10h4l1-10'},{k:'whiten',n:'Отбеливание',p:12000,d:90,t:'12 000 ₽',i:'M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2'},{k:'braces',n:'Исправление прикуса',p:65000,d:60,t:'от 65 000 ₽',i:'M3 9h18M3 15h18M7 9v6M12 9v6M17 9v6'}];
+var DR=[{id:'o',n:'Анна Орлова',r:'Терапевт, гигиенист',e:'9 лет опыта',ks:['consult','hyg','caries','whiten'],c:'#2a8f8b'},{id:'s',n:'Игорь Савельев',r:'Хирург-имплантолог',e:'14 лет опыта',ks:['consult','implant'],c:'#0f4f5a'},{id:'m',n:'Елена Март',r:'Ортодонт',e:'11 лет опыта',ks:['consult','braces'],c:'#5fa89a'},{id:'k',n:'Денис Ким',r:'Терапевт',e:'6 лет опыта',ks:['consult','caries','hyg'],c:'#3b7f9a'}];
+function ini(n){return n.split(' ').map(function(x){return x[0]}).join('')}
+function fm(n){return n.toLocaleString('ru-RU')+' ₽'}
+$('#svcList').innerHTML=SV.map(function(s){return '<div class="it"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"><path d="'+s.i+'"/></svg></div><div><h3>'+s.n+'</h3><div class="d">'+s.d+' минут</div></div><div class="pr">'+s.t+'</div></div>'}).join('');
+$('#docList').innerHTML=DR.map(function(d){return '<div class="doc"><div class="pic" style="background:linear-gradient(140deg,'+d.c+',color-mix(in srgb,'+d.c+' 55%,#000))">'+ini(d.n)+'</div><div class="tx"><h3>'+d.n+'</h3><p>'+d.r+'</p><em>'+d.e+'</em></div></div>'}).join('');
+var DN=['вс','пн','вт','ср','чт','пт','сб'],days=[],t0=new Date();
+for(var i=1;days.length<9;i++){var d=new Date(t0.getTime()+i*864e5);if(d.getDay()!==0)days.push(d)}
+function key(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()}
+function lab(d){return DN[d.getDay()]+', '+d.getDate()+'.'+('0'+(d.getMonth()+1)).slice(-2)}
+var TIMES=['09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00'];
+function busy(doc,d,t){var s=doc+key(d)+t,h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h%3===0}
+var S={step:0,svc:null,doc:null,day:null,time:null,name:'',phone:'',cons:false,err:''};
+var apps=store.get('volgadent-appts',[]);
+function sv(){return SV.filter(function(s){return s.k===S.svc})[0]}
+function dc(){return DR.filter(function(d){return d.id===S.doc})[0]}
+function steps(){return '<div class="stp">'+[0,1,2,3].map(function(i){return '<i class="'+(i<=Math.min(S.step,3)?'on':'')+'"></i>'}).join('')+'</div>'}
+function render(){var p=$('#panel'),h='';
+if(S.step===0){h=steps()+'<h3>Что вас беспокоит?</h3><div class="sub">Выберите услугу. Если не уверены, начните с бесплатной консультации.</div><div class="opts">'+SV.map(function(s){return '<button class="opt" type="button" data-s="'+s.k+'" aria-pressed="'+(S.svc===s.k)+'"><span><b>'+s.n+'</b><small>'+s.d+' минут</small></span><span class="r">'+s.t+'</span></button>'}).join('')+'</div><div class="nav2"><span></span><button class="btn" data-n="1" '+(S.svc?'':'disabled')+'>Далее</button></div>'}
+else if(S.step===1){var L=DR.filter(function(d){return d.ks.indexOf(S.svc)>-1});h=steps()+'<h3>Выберите врача</h3><div class="sub">Врачи, которые ведут «'+sv().n.toLowerCase()+'».</div><div class="opts">'+L.map(function(d){return '<button class="opt" type="button" data-d="'+d.id+'" aria-pressed="'+(S.doc===d.id)+'"><span class="av" style="background:'+d.c+'">'+ini(d.n)+'</span><span><b>'+d.n+'</b><small>'+d.r+', '+d.e+'</small></span></button>'}).join('')+'</div><div class="nav2"><button class="btn line" data-n="0">Назад</button><button class="btn" data-n="2" '+(S.doc?'':'disabled')+'>Далее</button></div>'}
+else if(S.step===2){h=steps()+'<h3>Дата и время</h3><div class="sub">Серые окна уже заняты. Приём длится '+sv().d+' минут.</div><div class="days">'+days.map(function(d,i){return '<button class="day" type="button" data-y="'+i+'" aria-pressed="'+(S.day===i)+'"><small>'+DN[d.getDay()]+'</small><b>'+d.getDate()+'</b></button>'}).join('')+'</div>'+(S.day===null?'<div class="sub">Сначала выберите день.</div>':'<div class="slots">'+TIMES.map(function(t){var b=busy(S.doc,days[S.day],t);return '<button class="slot" type="button" data-t="'+t+'" '+(b?'disabled':'')+' aria-pressed="'+(S.time===t)+'">'+t+'</button>'}).join('')+'</div>')+'<div class="nav2"><button class="btn line" data-n="1">Назад</button><button class="btn" data-n="3" '+(S.time?'':'disabled')+'>Далее</button></div>'}
+else if(S.step===3){h=steps()+'<h3>Ваши контакты</h3><div class="sub">Администратор подтвердит запись по телефону.</div><form class="form" id="cf" novalidate><label for="cn">Имя<input id="cn" value="'+S.name+'" placeholder="Иван"></label><label for="cp">Телефон<input id="cp" inputmode="tel" value="'+S.phone+'" placeholder="+7 900 000-00-00"></label><label class="cons" for="cc"><input type="checkbox" id="cc" '+(S.cons?'checked':'')+'><span>Согласен на обработку персональных данных (в демо-версии данные остаются в браузере)</span></label><div class="err" id="er">'+S.err+'</div><div class="nav2" style="margin-top:6px"><button class="btn line" type="button" data-n="2">Назад</button><button class="btn" type="submit">Записаться</button></div></form>'}
+else{var a=apps[apps.length-1];h='<div class="done"><div class="tick">✓</div><h3>Вы записаны</h3><div class="sub" style="margin-top:8px">Напоминание придёт за сутки до приёма. Здесь показан макет подтверждения.</div><div class="tk"><div><b>'+a.s+'</b></div><div>'+a.dr+'</div><div>'+a.when+'</div><div style="color:var(--mute)">Запись №'+a.id+'</div></div><div class="nav2" style="justify-content:center"><button class="btn line" data-n="0" data-reset="1">Записаться ещё</button></div></div>'}
+p.innerHTML=h;side();my()}
+function side(){var s=S.svc?sv():null,d=S.doc?dc():null;$('#sum').innerHTML='<div><dt>Услуга</dt><dd>'+(s?s.n:'не выбрана')+'</dd></div><div><dt>Врач</dt><dd>'+(d?d.n:'не выбран')+'</dd></div><div><dt>Время</dt><dd>'+(S.time?lab(days[S.day])+' в '+S.time:'не выбрано')+'</dd></div>';$('#tot').textContent=s?(s.p?(s.t.indexOf('от')===0?'от ':'')+fm(s.p):'0 ₽'):'–'}
+function my(){var e=$('#my');if(!apps.length){e.innerHTML='';return}e.innerHTML='<h3>Мои записи</h3>'+apps.map(function(a,i){return '<div class="rec"><span><b>'+a.s+'</b><br><small style="color:var(--mute)">'+a.dr+' · '+a.when+'</small></span><button data-c="'+i+'">Отменить</button></div>'}).join('')}
+$('#panel').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
+if(b.dataset.s){S.svc=b.dataset.s;S.doc=null;S.day=null;S.time=null;render()}
+else if(b.dataset.d){S.doc=b.dataset.d;S.day=null;S.time=null;render()}
+else if(b.dataset.y){S.day=+b.dataset.y;S.time=null;render()}
+else if(b.dataset.t){S.time=b.dataset.t;render()}
+else if(b.dataset.n){if(b.dataset.reset){S={step:0,svc:null,doc:null,day:null,time:null,name:'',phone:'',cons:false,err:''}}else{var f=$('#cn');if(f){S.name=f.value;S.phone=$('#cp').value;S.cons=$('#cc').checked}S.step=+b.dataset.n}render()}});
+$('#panel').addEventListener('submit',function(e){e.preventDefault();S.name=$('#cn').value.trim();S.phone=$('#cp').value;S.cons=$('#cc').checked;
+if(!S.name||S.phone.replace(/\D/g,'').length<10||!S.cons){S.err='Введите имя, телефон полностью и отметьте согласие.';render();return}
+S.err='';apps.push({id:String(Math.floor(1000+Math.random()*9000)),s:sv().n,dr:dc().n,when:lab(days[S.day])+' в '+S.time});store.set('volgadent-appts',apps);S.step=4;render();toast('Демо: запись сохранена в браузере, клиника её не получит')});
+$('#my').addEventListener('click',function(e){var b=e.target.closest('[data-c]');if(!b)return;apps.splice(+b.dataset.c,1);store.set('volgadent-appts',apps);if(S.step===4)S.step=0;render();toast('Запись отменена')});
+var qs=$('#qs'),qd=$('#qdoc');qs.innerHTML=SV.map(function(x){return '<option value="'+x.k+'">'+x.n+'</option>'}).join('');
+function fd(){var k=qs.value;qd.innerHTML='<option value="">Любой свободный</option>'+DR.filter(function(d){return d.ks.indexOf(k)>-1}).map(function(d){return '<option value="'+d.id+'">'+d.n+'</option>'}).join('')}
+fd();qs.onchange=fd;
+$('#qb').onsubmit=function(e){e.preventDefault();S.svc=qs.value;S.doc=qd.value||null;S.day=null;S.time=null;S.step=S.doc?2:1;render();document.getElementById('book').scrollIntoView({behavior:'smooth',block:'start'})};
+$$('.feat div,.svc .it,.doc,.tech div,.rv figure,.sec-h').forEach(function(e,i){e.classList.add('r');e.style.setProperty('--d',(i%4)*.07+'s')});window.revealInit();
+$('#burger').onclick=function(){$('#menu').classList.toggle('open')};
+render();
+})();
+</script>
